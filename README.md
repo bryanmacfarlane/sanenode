@@ -77,7 +77,8 @@ Factor code in a way to ensure all paths are testable and tested.
 
 ## API
 
-[Api Service Here](api/README.md)
+[Api Service Here](api)
+[Api Service Docs](api/README.md)
 
 ## Front End
 
