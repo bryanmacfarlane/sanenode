@@ -55,15 +55,10 @@ export async function create() {
                 break;
             }
             catch (err) {
-                if (tries == 3) {
-                    throw err;
-                }
-                else {
-                    console.log('Retrying ...');
-                }
+                if (tries == 3) { throw err; }
+                console.log('Retrying ...');
             }
         }
-
     });    
 
     // -------------------------------------------------------
