@@ -32,6 +32,40 @@ export async function create() {
         res.send(quotes);
     });
 
+    app.get('/quotes/random', async (req: exp.Request, res: exp.Response) => {
+        // await allows us to write linear code.  
+        // quotes.length will note run until getQuotes async call returns
+        // makes it easy to also call async code in a loop
+        // offers easy error handling with try catch
+        var tries: number = 0;
+        while (true) {
+            try {
+                ++tries;
+                // ASYNC/AWAIT
+                var quotes: qm.IQuote[] = await qsvc.getQuotes();
+                var count: number = quotes.length;
+                if (count > 0) {
+                    var randIndex: number = Math.floor(Math.random() * count);
+                    var quote = quotes[randIndex];
+                    res.send(quote);
+                }
+                else {
+                    res.status(404).send({ message: 'no quotes to pick from'});
+                }
+                break;
+            }
+            catch (err) {
+                if (tries == 3) {
+                    throw err;
+                }
+                else {
+                    console.log('Retrying ...');
+                }
+            }
+        }
+
+    });    
+
     // -------------------------------------------------------
     // error handling
     // -------------------------------------------------------
