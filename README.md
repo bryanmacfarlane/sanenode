@@ -75,9 +75,14 @@ Illustrate how to debug
 
 Factor code in a way to ensure all paths are testable and tested.
 
+## Scaleable
+
+Factor into api and front service.  Illustrate using JWT tokens for auth, CORS etc... which are all problems when scaling out with micro services.
+
 ## API
 
-[Api Service Here](api)
+[Api Service Here](api)  
+
 [Api Service Docs](api/README.md)
 
 ## Front End
