@@ -1,12 +1,22 @@
 /// <reference path="typings/api.d.ts" />
 
-import app = require('./app');
+import appm = require('./app');
 import http = require('http');
 
 var port = getPort(process.env.API_PORT, 7770);
 
-var server = http.createServer(app.createApplication());
-server.listen(port, onListening);
+var _server = null;
+
+async function startServer() {
+    console.log('creating app');
+    var app = await appm.create();
+    console.log('creating svr');
+    _server = http.createServer(app);
+    console.log('listen');
+    _server.listen(port, onListening);
+}
+
+startServer();
 
 function getPort(val, def) {
     var port = parseInt(val, 10);
@@ -18,7 +28,7 @@ function getPort(val, def) {
 }
 
 function onListening() {
-    var addr = server.address();
+    var addr = _server.address();
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;

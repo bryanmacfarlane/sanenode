@@ -5,12 +5,16 @@ import exp = require('express');
 import path = require('path');
 import bodyParser = require('body-parser');
 import cookieParser = require('cookie-parser');
+import qm = require('./quotes');
 
-export function createApplication(): exp.Express {
+export async function create() {
+    console.log('create');
     var app: exp.Express = exp();
 
+    console.log('created exp');
     // no view engines for an api server
     // TODO: hook up logger
+    var qsvc: qm.Quotes = new qm.Quotes();
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,13 +22,15 @@ export function createApplication(): exp.Express {
     app.use(exp.static(path.join(__dirname, 'public')));
 
     // routes
+    console.log('routes');
     app.get('/', (req: exp.Request, res: exp.Response) => {
-        res.send({ message: "say something" });
+        res.send({ message: "quote service" });
     })
-
-    app.get('/hello', (req: exp.Request, res: exp.Response) => {
-        res.send({ message: "hello world" });
-    })
+    
+    app.get('/quotes', async (req: exp.Request, res: exp.Response) => {
+        var quotes: qm.IQuote[] = await qsvc.getQuotes();
+        res.send(quotes);
+    });
 
     // -------------------------------------------------------
     // error handling
@@ -58,5 +64,12 @@ export function createApplication(): exp.Express {
         res.send(<ApiError>{ message: err.message, error: resErr });
     });
 
+    console.log('init quote service');
+    await qsvc.initialize();
+
     return app;
 }
+
+process.on('uncaughtException', function (err) {
+    console.error(err.stack);
+});
