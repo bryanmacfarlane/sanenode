@@ -24,32 +24,28 @@ public async initialize() {
 }
 ```
 
-An example which would be much harder to accomplish with callbacks.  
+An example which would be much harder to accomplish with callbacks and even promises.  
 Notice async calls inside of loops, sequential code and easy try/catch error handling  
 
 ```javascript
+// await allows us to write linear code.  
+// makes it easy to also call async code in a loop
+// offers easy error handling with try catch
+var quotes: IQuote[];
 var tries: number = 0;
 while (true) {
     try {
         ++tries;
         // ASYNC/AWAIT
-        var quotes: qm.IQuote[] = await qsvc.getQuotes();
-        var count: number = quotes.length;
-        if (count > 0) {
-            var randIndex: number = Math.floor(Math.random() * count);
-            var quote = quotes[randIndex];
-            res.send(quote);
-        }
-        else {
-            res.status(404).send({ message: 'no quotes to pick from'});
-        }
+        quotes = await this._store.find<IQuote>({});
         break;
     }
     catch (err) {
         if (tries == 3) { throw err; }
-        console.log('Retrying ...');
     }
 }
+
+return quotes;
 ```
 
 ## Compile time support  
