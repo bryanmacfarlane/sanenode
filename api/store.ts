@@ -20,6 +20,10 @@ export class Store {
         return Q.ninvoke<Array<T>>(this._db, 'find', query);
     }
 
+    public findOne<T>(query:any): Q.Promise<T> {
+        return Q.ninvoke<T>(this._db, 'findOne', query);
+    }    
+
     public insert<T>(doc: T): Q.Promise<T> {
         return Q.ninvoke<T>(this._db, 'insert', doc);
     }

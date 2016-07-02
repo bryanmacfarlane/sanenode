@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as routes from './routes';
+import * as cm from './common';
 
 export async function create() {
     console.log('create');
@@ -30,32 +31,14 @@ export async function create() {
     // error handling
     // -------------------------------------------------------
 
-    // error can have status on it
-    interface Error {
-        message: string,
-        status?: number;
-    }
-
-    interface ApiError {
-        message: string,
-        error: Error
-    }    
-
     // forward routes not found to the error handler
     app.use((req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
-        var err: Error = new Error('Not Found');
-        err.status = 404;
+        var err: cm.ApiError = new cm.ApiError('Not Found', cm.StatusCode.NotFound);
         next(err);
     });
 
-    var dev: boolean = app.get('env') === 'development';
-
-    app.use((err: Error, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
-        res.status(err.status || 500);
-
-        // dev includes full error object with stack trace etc
-        var resErr = dev ? err : {};
-        res.send(<ApiError>{ message: err.message, error: resErr });
+    app.use((err: cm.ApiError, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
+        cm.handleError(err, res);
     });
 
     return app;

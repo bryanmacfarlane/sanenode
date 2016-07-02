@@ -24,7 +24,7 @@ public async initialize() {
 }
 ```
 
-An example which would be much harder to accomplish with callbacks and even promises.  
+An example which would be much harder to accomplish with callbacks and even solely promises.  
 Notice async calls inside of loops, sequential code and easy try/catch error handling  
 
 ```javascript

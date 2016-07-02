@@ -10,7 +10,7 @@ export interface IQuote {
     author: string
 }
     
-export class Quotes {
+export class QuotesService {
     constructor() {
         this._store = new sm.Store();
     }
