@@ -32,7 +32,6 @@ export async function setup(app:exp.Express) {
         }
 
         if (decoded) {
-            delete decoded.credentials;
             req['identity']=decoded;
             next();
         }
@@ -52,14 +51,14 @@ export async function setup(app:exp.Express) {
 
             let identity: id.Identity = await idsvc.authenticate(cred);
             if (identity) {
-                 token = jwt.sign(identity, JWT_SECRET, <jwt.SignOptions>{ expiresIn: 24 * 60 });
+                delete identity.credentials;
+                token = jwt.sign(identity, JWT_SECRET, <jwt.SignOptions>{ expiresIn: 24 * 60 });
             }
             else {
                 res.status(cm.StatusCode.Unauthorized).send({ message: "Authentication Failed"});
             }
             
             identity['token'] = token;
-            delete identity.credentials;
             res.send(identity);
         }
         catch (err) {
