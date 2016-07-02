@@ -6,21 +6,16 @@ Create a sample service which illustrates sane node development avoiding some of
 
 Use async/await along with promises to write logical sane linear code while still maintaining the benefits of async execution
 
-For example, in this example, the second insert doesn't occur until after the first one completes.
+For example, in this example, each insert is sequential but still async.
 
 ```javascript
 public async initialize() {
     // insert some sample data for the demo
-    
-    await this._store.insert<IQuote>(<IQuote>{ 
-        "quote": "Don't cry because it's over, smile because it happened.",
-        "author": "Dr. Seuss"}
-    );
+    let sampleQuote: IQuote;
 
-    await this._store.insert<IQuote>(<IQuote>{ 
-        "quote": "Be yourself; everyone else is already taken.",
-        "author": "Oscar Wilde"}
-    );
+    sampleQuotes.forEach(async (sampleQuote) => {
+        await this._store.insert<IQuote>(sampleQuote);
+    });
 }
 ```
 
