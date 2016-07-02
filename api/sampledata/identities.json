@@ -1,0 +1,28 @@
+[
+    { 
+        "id": "johndoe",
+        "name": "John Doe",
+        "roles": [ "admin" ], 
+        "credentials": {
+            "UserPass": { 
+                "credentialtype": "UserPass", 
+                "data": {
+                    "password": "password"
+                }
+            }
+        }
+    },
+    { 
+        "id": "janedoe",
+        "name": "Jane Doe",
+        "roles": [], 
+        "credentials": {
+            "UserPass": { 
+                "credentialtype": "UserPass", 
+                "data": {
+                    "password": "password"
+                }
+            }
+        }
+    }    
+]

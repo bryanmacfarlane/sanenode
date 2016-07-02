@@ -22,14 +22,15 @@ export async function setup(app:exp.Express) {
         let decoded: any;
 
         try {
-            let token: string = req.headers['x-access-token'];
-            if (token) {
-                decoded = await Q.nfcall(jwt.verify, token, JWT_SECRET);
+            let auth: string = req.headers['authorization'];
+            if (auth) {
+                let parts = auth.trim().split(' ');
+                if (parts.length == 2 && parts[0] === 'Bearer') {
+                    decoded = await Q.nfcall(jwt.verify, parts[1], JWT_SECRET);
+                }
             }
         }
-        catch (err) {
-            // nothing - if it fails to verify, it won't be decoded
-        }
+        catch (err) {}
 
         if (decoded) {
             req['identity']=decoded;
@@ -74,11 +75,10 @@ export async function setup(app:exp.Express) {
 
     // authenticated to admins to get all quotes dumped
     app.get('/quotes', authRouter, async (req: exp.Request, res: exp.Response) => {
-
-        // hacky authorization - john doe yes, others no
         let identity: id.Identity = req['identity'];
-        
-        if (idsvc.isInRole(identity, 'admin')) {
+
+        // hacky authorization - admin role yes        
+        if (identity && idsvc.isInRole(identity, 'admin')) {
             var quotes: qm.IQuote[] = await qsvc.getQuotes();
             res.send(quotes);
         }

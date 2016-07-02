@@ -6,6 +6,8 @@ import * as sm from './store';
 import * as Q from 'q';
 import * as cm from './common';
 
+var sampleIdentities = require('./sampledata/identities.json');
+
 export interface Identity {
     id: string,
     name: string,
@@ -67,33 +69,10 @@ export class IdentityService {
 
     public async initialize() {
         // insert some sample data for the demo
+        let sampleIdentity: Identity;
 
-        await this._store.insert<Identity>(<Identity>{ 
-            id: "johndoe",
-            name: "John Doe",
-            roles: [ 'admin' ], 
-            credentials: {
-                "UserPass": { 
-                    credentialtype: "UserPass", 
-                    data: {
-                        "password": "password"
-                    }
-                }
-            }
-        });
-
-        await this._store.insert<Identity>(<Identity>{ 
-            id: "janedoe",
-            name: "Jane Doe", 
-            roles: [],
-            credentials: {
-                "UserPass": { 
-                    credentialtype: "UserPass", 
-                    data: {
-                        "password": "password"
-                    }
-                }
-            }
+        sampleIdentities.forEach(async (sampleIdentity) => {
+            await this._store.insert<Identity>(sampleIdentity);
         });
     }
 }

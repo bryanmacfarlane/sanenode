@@ -5,6 +5,8 @@ import * as ds from 'nedb';
 import * as sm from './store';
 import * as Q from 'q';
 
+var sampleQuotes = require('./sampledata/quotes.json');
+
 export interface IQuote {
     quote: string,
     author: string
@@ -19,16 +21,11 @@ export class QuotesService {
 
     public async initialize() {
         // insert some sample data for the demo
+        let sampleQuote: IQuote;
 
-        await this._store.insert<IQuote>(<IQuote>{ 
-            "quote": "Don't cry because it's over, smile because it happened.",
-            "author": "Dr. Seuss"}
-        );
-
-        await this._store.insert<IQuote>(<IQuote>{ 
-            "quote": "Be yourself; everyone else is already taken.",
-            "author": "Oscar Wilde"}
-        );
+        sampleQuotes.forEach(async (sampleQuote) => {
+            await this._store.insert<IQuote>(sampleQuote);
+        });
     }
 
     public async getQuotes(): Promise<IQuote[]> {
