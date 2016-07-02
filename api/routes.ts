@@ -72,12 +72,13 @@ export async function setup(app:exp.Express) {
         res.send(quote);
     });
 
-    // authenticated to get all quotes dumped
+    // authenticated to admins to get all quotes dumped
     app.get('/quotes', authRouter, async (req: exp.Request, res: exp.Response) => {
 
         // hacky authorization - john doe yes, others no
         let identity: id.Identity = req['identity'];
-        if (identity.id === 'johndoe') {
+        
+        if (idsvc.isInRole(identity, 'admin')) {
             var quotes: qm.IQuote[] = await qsvc.getQuotes();
             res.send(quotes);
         }

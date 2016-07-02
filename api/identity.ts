@@ -9,6 +9,7 @@ import * as cm from './common';
 export interface Identity {
     id: string,
     name: string,
+    roles: string[];
     token?: string,
     credentials: { [credtype: string]: cm.IApiCredential };
 }
@@ -52,6 +53,16 @@ export class IdentityService {
         }
         
         return identity;
+    }
+
+    public isInRole(identity: Identity, role: string) {
+        let inRole: Boolean = false;
+
+        if (identity.roles) {
+            inRole = identity.roles.indexOf(role) >= 0;
+        }
+        
+        return inRole;
     }    
 
     public async initialize() {
@@ -59,7 +70,8 @@ export class IdentityService {
 
         await this._store.insert<Identity>(<Identity>{ 
             id: "johndoe",
-            name: "John Doe", 
+            name: "John Doe",
+            roles: [ 'admin' ], 
             credentials: {
                 "UserPass": { 
                     credentialtype: "UserPass", 
@@ -73,6 +85,7 @@ export class IdentityService {
         await this._store.insert<Identity>(<Identity>{ 
             id: "janedoe",
             name: "Jane Doe", 
+            roles: [],
             credentials: {
                 "UserPass": { 
                     credentialtype: "UserPass", 
