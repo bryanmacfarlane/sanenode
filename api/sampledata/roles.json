@@ -1,0 +1,9 @@
+{
+    "admin": {
+        "name": "Administrator",
+        "permissions": [
+            "list_quotes",
+            "edit_quotes"
+        ]
+    }
+}

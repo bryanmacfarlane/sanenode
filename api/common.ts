@@ -2,6 +2,9 @@
 
 import * as exp from 'express';
 
+// would typically come from runtime config in prod app.  shhh.
+export var JWT_SECRET="secret";
+
 export interface IStringDictionary { [name: string]: string }
 
 export interface IApiCredential {

@@ -6,41 +6,36 @@ import * as Q from 'q';
 import * as qm from './quotes';
 import * as cm from './common';
 import * as id from './identity';
+import * as auth from './authrouter';
+import * as cors from 'cors';
 
 // should come from config
 const JWT_SECRET: string = "secret";
 
 export async function setup(app:exp.Express) {
+    //----------------------------------------------------------
+    // CORS for Cross Domain Requests
+    // https://staticapps.org/articles/cross-domain-requests-with-cors/
+    //----------------------------------------------------------
+
+    // enabling simple uses for all routes and all origins
+    // production apps should set origin in options
+    // see https://github.com/expressjs/cors
+    app.use(cors());
+    app.options('*', cors());
+
+    //----------------------------------------------------------
+    // Create Services
+    //----------------------------------------------------------
     let idsvc: id.IdentityService = new id.IdentityService();
     await idsvc.initialize();
 
     let qsvc: qm.QuotesService = new qm.QuotesService();
     await qsvc.initialize();
 
-    let authRouter: exp.Router = exp.Router();
-    authRouter.use( async (req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
-        let decoded: any;
-
-        try {
-            let auth: string = req.headers['authorization'];
-            if (auth) {
-                let parts = auth.trim().split(' ');
-                if (parts.length == 2 && parts[0] === 'Bearer') {
-                    decoded = await Q.nfcall(jwt.verify, parts[1], JWT_SECRET);
-                }
-            }
-        }
-        catch (err) {}
-
-        if (decoded) {
-            req['identity']=decoded;
-            next();
-        }
-        else {
-            res.status(cm.StatusCode.Unauthorized).send("Unauthorized");
-        }
-    });
-
+    //----------------------------------------------------------
+    // Routes using Services
+    //----------------------------------------------------------
     app.get('/', (req: exp.Request, res: exp.Response) => {
         res.send({ message: "quote service" });
     });
@@ -67,23 +62,24 @@ export async function setup(app:exp.Express) {
         }
     });
 
-    // not authenticated
+    //
+    // Anonymous Routes
+    //
     app.get('/quotes/random', async (req: exp.Request, res: exp.Response) => {
         var quote: qm.IQuote = await qsvc.getRandomQuote();
         res.send(quote);
     });
 
-    // authenticated to admins to get all quotes dumped
-    app.get('/quotes', authRouter, async (req: exp.Request, res: exp.Response) => {
-        let identity: id.Identity = req['identity'];
+    //
+    // Protected Routes
+    //
 
-        // hacky authorization - admin role yes        
-        if (identity && idsvc.isInRole(identity, 'admin')) {
-            var quotes: qm.IQuote[] = await qsvc.getQuotes();
-            res.send(quotes);
-        }
-        else {
-            res.status(cm.StatusCode.Forbidden).send({ message: "unauthorized"});
-        }
+    // dumping all quotes is for admin quote management UI - auth and check permission.
+    app.get('/quotes', 
+            new auth.AuthRouter().permission('list_quotes').router, 
+            async (req: exp.Request, res: exp.Response) => {
+
+        let quotes: qm.IQuote[] = await qsvc.getQuotes();
+        res.send(quotes);
     });
 }

@@ -66,9 +66,11 @@ Illustrate how to debug
 
 Factor code in a way to ensure all paths are testable and tested.
 
-## Scaleable
+## Manageable and Scaleable
 
-Factor into api and front service.  Illustrate using JWT tokens for auth, CORS etc... which are all problems when scaling out with micro services.
+Breaking code into micro-services and layers makes code manageable and allows for independent scaling.  However, doing so requires common modules and complicates security.    
+
+This sample will illustrate using JWT tokens for auth, CORS and a simple role based security model using Node middleware.
 
 ## API
 
