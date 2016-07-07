@@ -2,17 +2,15 @@
 
 import appm = require('./app');
 import http = require('http');
+import * as exp from 'express';
 
 var port = getPort(process.env.API_PORT, 7770);
 
-var _server = null;
+var _server: http.Server = null;
 
 async function startServer() {
-    console.log('creating app');
     var app = await appm.create();
-    console.log('creating svr');
     _server = http.createServer(app);
-    console.log('listen');
     _server.listen(port, onListening);
 }
 

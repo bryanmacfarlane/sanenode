@@ -64,7 +64,11 @@ Illustrate how to debug
 
 ## Highly Testable and Tested
 
-Factor code in a way to ensure all paths are testable and tested.
+Factor code in a way to ensure all paths are testable and tested.  
+
+Tests should be written in the same sequential async/await fashion.  
+
+![Compile Error](docs/awaittests.png)
 
 ## Manageable and Scaleable
 

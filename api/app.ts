@@ -9,10 +9,8 @@ import * as routes from './routes';
 import * as cm from './common';
 
 export async function create() {
-    console.log('create');
     var app: exp.Express = exp();
 
-    console.log('created exp');
     // no view engines for an api server
     // TODO: hook up logger
 
@@ -24,7 +22,6 @@ export async function create() {
     // -------------------------------------------------------
     // routes
     // -------------------------------------------------------
-    console.log('routes');
     await routes.setup(app);
 
     // -------------------------------------------------------

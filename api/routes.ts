@@ -39,7 +39,7 @@ export async function setup(app:exp.Express) {
     app.get('/', (req: exp.Request, res: exp.Response) => {
         res.send({ message: "quote service" });
     });
-    
+
     app.post('/authtoken', async (req: exp.Request, res: exp.Response) => {
         try {
             let token: string;

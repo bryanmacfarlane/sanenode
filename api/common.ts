@@ -33,10 +33,8 @@ export class StatusCode {
 
 export class ApiError implements Error {
     constructor(message: string, status?: number) { 
-        this.message = message; 
-        if (!status) {
-            status = StatusCode.ServerError;
-        }
+        this.message = message;
+        this.status = status || StatusCode.ServerError;
     }
 
     public name = "ApiError";

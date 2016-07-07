@@ -1,35 +1,42 @@
 # Hello Service API Sample Notes
 
-## Tools
+## Dependencies and Dev Tools
 
-Install typescript compiler and definately typed clis globally
+Install [node and npm](https://nodejs.org) >= 4.4
+
+Install [typescript](https://www.typescriptlang.org/) compiler and [definately typed](http://definitelytyped.org) clis globally
 
 ```bash
 sudo npm install tsc -g
 sudo npm install tsd -g
 ```
 
-## Dependencies
-
-Install [Express Server](http://expressjs.com) and middleware we will use
+Install node modules used by the api
 
 ```bash
-npm install express --save
-tsd install express
-
-npm install body-parser --save
-tsd install body-parser
-
-npm install cookie-parser --save
-tsd install cookie-parser
+$ npm install
 ```
 
-## Modules
+## Build
+
+From the api folder:
 
 ```bash
-npm install express --save
+$ tsc
 ```
 
-## Typings (Definately Typed)
+## Run
 
+From the api folder:
 
+```bash
+$ npm start run
+```
+
+## Test
+
+From the api folder:
+
+```bash
+$ npm test
+```

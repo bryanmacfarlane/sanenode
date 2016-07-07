@@ -25,26 +25,35 @@ export class SecurityService {
         // would come from db in real app
         this._roles = require('./sampledata/roles.json');
         this._roleIds = Object.keys(this._roles);
+        this._permMap = {};
+
+        // create permission to roles map lookup
+        this._roleIds.forEach((roleId: string) => {
+            this._roles[roleId].permissions.forEach((perm: string) => {
+                if (!this._permMap[perm]) { 
+                    this._permMap[perm] = []; 
+                }
+                this._permMap[perm].push(roleId);
+            })
+        });
     }
 
     private _roles: IRoles;
     private _roleIds: string[];
+    private _permMap: { [perm: string]: string[] }
 
     public async identyHasPermission(identity: idsvc.Identity, permission: string): Promise<Boolean> {
         let hasPerm: boolean = false;
 
-        // sample - real app would optimize with O(1) cache lookups etc...
-        for (var i = 0; i < this._roleIds.length; i++) {
-            let currRoleId: string = this._roleIds[i];
-            if (identity.roles.indexOf(currRoleId) >= 0) {
-                let role: IRole = this._roles[currRoleId];
-                if (role && role.permissions.indexOf(permission) >= 0) {
-                    hasPerm = true;
-                    break;
-                }
-            }          
-        } 
-
+        // find roles that have this permission then check if identity is in one of those roles
+        let roleIds = this._permMap[permission];
+        for (var i = 0; i < roleIds.length; i++) {
+            if (identity.roles.indexOf(roleIds[i]) >= 0) {
+                hasPerm = true;
+                break;
+            }
+        }
+        
         return hasPerm;
     }
 }

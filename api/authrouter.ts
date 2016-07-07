@@ -50,7 +50,8 @@ export class AuthRouter {
                 next();
             }
             else {
-                res.status(cm.StatusCode.Unauthorized).send("Unauthorized");
+                var err: cm.ApiError = new cm.ApiError('Unauthorized', 401);
+                res.status(cm.StatusCode.Unauthorized).send(err);
             }
         });
 
@@ -66,7 +67,8 @@ export class AuthRouter {
                 next();
             }
             else {
-                res.status(cm.StatusCode.Forbidden).send("Access Denied");
+                var err: cm.ApiError = new cm.ApiError('Access Denied', 403);
+                res.status(cm.StatusCode.Forbidden).send(err);
             }
         });        
     }

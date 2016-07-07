@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && mocha tests.js"
   },
   "author": "Bryan MacFarlane",
   "license": "MIT",
@@ -17,5 +17,11 @@
     "jsonwebtoken": "^7.0.1",
     "nedb": "^1.8.0",
     "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^2.5.3",
+    "request": "^2.72.0",
+    "supertest": "^1.2.0"
   }
 }
