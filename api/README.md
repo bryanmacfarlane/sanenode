@@ -11,12 +11,6 @@ sudo npm install tsc -g
 sudo npm install typings -g
 ```
 
-Install node modules used by the api
-
-```bash
-$ npm install
-```
-
 ## Build
 
 From api folder ...
