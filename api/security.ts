@@ -1,4 +1,4 @@
-/// <reference path="typings/api.d.ts" />
+/// <reference path="typings/index.d.ts" />
 
 import * as path from 'path';
 import * as Q from 'q';

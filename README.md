@@ -78,9 +78,7 @@ This sample will illustrate using JWT tokens for auth, CORS and a simple role ba
 
 ## API
 
-[Api Service Here](api)  
-
-[Api Service Docs](api/README.md)
+[Api Service Here](api)
 
 ## Front End
 

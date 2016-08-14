@@ -1,5 +1,5 @@
 
-/// <reference path="typings/api.d.ts" />
+/// <reference path="typings/index.d.ts" />
 
 import * as exp from 'express';
 import * as path from 'path';
