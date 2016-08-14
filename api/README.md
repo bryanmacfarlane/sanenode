@@ -4,7 +4,7 @@
 
 Install [node and npm](https://nodejs.org) >= 4.4
 
-Install [typescript](https://www.typescriptlang.org/) compiler and [typings](http://definitelytyped.org) clis globally
+Install [typescript](https://www.typescriptlang.org/) compiler and [typings](https://www.npmjs.com/package/typings#) clis globally
 
 ```bash
 sudo npm install tsc -g
@@ -19,13 +19,16 @@ $ npm install
 
 ## Build
 
-once:
+From api folder ...
+
+once or if new dependencies added / updated:
 
 ```bash
 $ typings install
+$ npm install
 ```
 
-From the api folder:
+every time:
 
 ```bash
 $ tsc
