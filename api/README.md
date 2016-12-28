@@ -7,7 +7,6 @@ Install [node and npm](https://nodejs.org) >= 4.4
 Install [typescript](https://www.typescriptlang.org/) compiler and [typings](https://www.npmjs.com/package/typings#) clis globally
 
 ```bash
-sudo npm install tsc -g
 sudo npm install typings -g
 ```
 
@@ -25,7 +24,7 @@ $ npm install
 every time:
 
 ```bash
-$ tsc
+$ npm run build
 ```
 
 ## Run
@@ -33,7 +32,7 @@ $ tsc
 From the api folder:
 
 ```bash
-$ npm start run
+$ npm run start
 ```
 
 ## Test
