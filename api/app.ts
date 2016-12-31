@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as routes from './routes';
-import * as em from '../common/error';
 import * as api from './common'
 
 export async function create() {
@@ -32,13 +31,10 @@ export async function create() {
     // routes not matched will fall through to this (404)
     app.use((req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
         res.status(404).send(new Error('Not Found'));
-        //var err: em.QuoteError = new em.QuoteError('Not Found', em.StatusCode.NotFound);
-        //next(err);
     });
 
     app.use((err: Error, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
         res.status(500).send(err);
-        //api.handleError(err, res);
     });
 
     return app;

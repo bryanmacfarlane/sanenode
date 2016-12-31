@@ -12,9 +12,6 @@ import * as api from './common'
 
 let config = require('./config.json');
 
-// should come from config
-//const JWT_SECRET: string = "secret";
-
 export async function setup(app:exp.Express) {
     //----------------------------------------------------------
     // CORS for Cross Domain Requests

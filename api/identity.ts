@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as ds from 'nedb';
 import * as sm from './store';
 import * as Q from 'q';
-import * as em from '../common/error';
 import * as cm from '../common/contracts'
 
 var sampleIdentities = require('./sampledata/identities.json');
