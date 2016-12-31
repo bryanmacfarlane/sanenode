@@ -6,7 +6,7 @@ import assert = require('assert');
 import * as request from 'supertest';
 import * as idm from './identity';
 import * as qm from './quotes';
-import * as cm from './common';
+import * as cm from '../common/contracts';
 import * as Q from 'q';
 
 var _port = 8880;
@@ -61,7 +61,7 @@ describe('Quotes API Tests', async () => {
             try {
                 let res: request.Response = await get('/quotes/random');
                 assert.equal(res.status, 200, "should be 200");
-                let quote: qm.IQuote = <qm.IQuote>res.body;
+                let quote: cm.IQuote = <cm.IQuote>res.body;
                 assert(quote.quote.length > 0, 'has a quote');
                 assert(quote.author.length > 0, 'has an author'); 
                 done();

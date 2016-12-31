@@ -4,7 +4,8 @@ import * as path from 'path';
 import * as ds from 'nedb';
 import * as sm from './store';
 import * as Q from 'q';
-import * as cm from './common';
+import * as em from '../common/error';
+import * as cm from '../common/contracts'
 
 var sampleIdentities = require('./sampledata/identities.json');
 
@@ -27,12 +28,12 @@ export class IdentityService {
         var identity: Identity;
 
         if (!credential.credentialtype || !credential.data ) {
-            throw new cm.BadRequest('Invalid credential');
+            throw new Error('Invalid credential');
         }
 
         // sample only supports UserPass cred
         if (credential.credentialtype !== "UserPass") {
-            throw new cm.BadRequest('Unsupported credential type: ' + credential.credentialtype);
+            throw new Error('Unsupported credential type: ' + credential.credentialtype);
         }
 
         let username: string = credential.data["username"];

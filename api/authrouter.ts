@@ -3,9 +3,11 @@
 import * as exp from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as Q from 'q';
-import * as cm from './common';
+import * as api from './common';
 import * as secm from './security';
 import * as idm from './identity';
+
+let config = require('./config.json');
 
 //
 // Authentication and Authorization Router Middleware
@@ -39,7 +41,7 @@ export class AuthRouter {
                 if (auth) {
                     let parts = auth.trim().split(' ');
                     if (parts.length == 2 && parts[0] === 'Bearer') {
-                        decoded = await Q.nfcall(jwt.verify, parts[1], cm.JWT_SECRET);
+                        decoded = await Q.nfcall(jwt.verify, parts[1], config.JWT_SECRET);
                     }
                 }
             }
@@ -50,8 +52,7 @@ export class AuthRouter {
                 next();
             }
             else {
-                var err: cm.ApiError = new cm.ApiError('Unauthorized', 401);
-                res.status(cm.StatusCode.Unauthorized).send(err);
+                res.status(api.StatusCode.Unauthorized).send(new Error('Unauthorized'));
             }
         });
 
@@ -67,8 +68,7 @@ export class AuthRouter {
                 next();
             }
             else {
-                var err: cm.ApiError = new cm.ApiError('Access Denied', 403);
-                res.status(cm.StatusCode.Forbidden).send(err);
+                res.status(api.StatusCode.Forbidden).send(new Error('Access Denied'));
             }
         });        
     }

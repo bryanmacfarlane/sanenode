@@ -6,7 +6,8 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as routes from './routes';
-import * as cm from './common';
+import * as em from '../common/error';
+import * as api from './common'
 
 export async function create() {
     var app: exp.Express = exp();
@@ -28,14 +29,16 @@ export async function create() {
     // error handling
     // -------------------------------------------------------
 
-    // forward routes not found to the error handler
+    // routes not matched will fall through to this (404)
     app.use((req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
-        var err: cm.ApiError = new cm.ApiError('Not Found', cm.StatusCode.NotFound);
-        next(err);
+        res.status(404).send(new Error('Not Found'));
+        //var err: em.QuoteError = new em.QuoteError('Not Found', em.StatusCode.NotFound);
+        //next(err);
     });
 
-    app.use((err: cm.ApiError, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
-        cm.handleError(err, res);
+    app.use((err: Error, req: exp.Request, res: exp.Response, next: exp.NextFunction) => {
+        res.status(500).send(err);
+        //api.handleError(err, res);
     });
 
     return app;

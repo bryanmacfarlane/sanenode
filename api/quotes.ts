@@ -4,13 +4,9 @@ import * as path from 'path';
 import * as ds from 'nedb';
 import * as sm from './store';
 import * as Q from 'q';
+import * as cm from '../common/contracts';
 
 var sampleQuotes = require('./sampledata/quotes.json');
-
-export interface IQuote {
-    quote: string,
-    author: string
-}
     
 export class QuotesService {
     constructor() {
@@ -21,24 +17,24 @@ export class QuotesService {
 
     public async initialize() {
         // insert some sample data for the demo
-        let sampleQuote: IQuote;
+        let sampleQuote: cm.IQuote;
 
         sampleQuotes.forEach(async (sampleQuote) => {
-            await this._store.insert<IQuote>(sampleQuote);
+            await this._store.insert<cm.IQuote>(sampleQuote);
         });
     }
 
-    public async getQuotes(): Promise<IQuote[]> {
+    public async getQuotes(): Promise<cm.IQuote[]> {
         // await allows us to write linear code.  
         // makes it easy to also call async code in a loop
         // offers easy error handling with try catch
-        var quotes: IQuote[];
+        var quotes: cm.IQuote[];
         var tries: number = 0;
         while (true) {
             try {
                 ++tries;
                 // ASYNC/AWAIT
-                quotes = await this._store.find<IQuote>({});
+                quotes = await this._store.find<cm.IQuote>({});
                 break;
             }
             catch (err) {
@@ -51,7 +47,7 @@ export class QuotesService {
     }
 
     public async getRandomQuote() {
-        var quote:IQuote = null;
+        var quote:cm.IQuote = null;
         var quotes = await this.getQuotes();
         var count: number = quotes.length;
         if (count > 0) {

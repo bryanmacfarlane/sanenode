@@ -1,29 +1,29 @@
 {
-  "name": "sanenode.api",
-  "version": "1.0.0",
-  "description": "Sane Node Sample Service Api Endpoint",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./bin/www",
-    "build": "node node_modules/typescript/bin/tsc",
-    "test": "node node_modules/typescript/bin/tsc && mocha tests.js"
-  },
-  "author": "Bryan MacFarlane",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.7.1",
-    "express": "^4.14.0",
-    "jsonwebtoken": "^7.0.1",
-    "nedb": "^1.8.0",
-    "q": "^1.4.1"
-  },
-  "devDependencies": {
-    "assert": "^1.4.1",
-    "mocha": "^2.5.3",
-    "request": "^2.72.0",
-    "supertest": "^1.2.0",
-    "typescript": "^2.1.4"
-  }
+    "name": "sanenode.api",
+    "version": "1.0.0",
+    "description": "Sane Node Sample Service Api Endpoint",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ./bin/www",
+        "build": "node node_modules/typescript/bin/tsc",
+        "test": "node node_modules/typescript/bin/tsc && mocha tests.js"
+    },
+    "author": "Bryan MacFarlane",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.7.1",
+        "express": "^4.14.0",
+        "jsonwebtoken": "^7.0.1",
+        "nedb": "^1.8.0",
+        "q": "^1.4.1"
+    },
+    "devDependencies": {
+        "assert": "^1.4.1",
+        "mocha": "^2.5.3",
+        "request": "^2.72.0",
+        "supertest": "^1.2.0",
+        "typescript": "^2.1.4"
+    }
 }

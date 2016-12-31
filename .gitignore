@@ -4,6 +4,7 @@ node_modules
 
 # build output
 *.js
+npm-debug.log
 
 # OSX
 .DS_Store
