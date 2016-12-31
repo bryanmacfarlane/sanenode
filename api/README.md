@@ -2,7 +2,7 @@
 
 ## Dependencies and Dev Tools
 
-Install [node and npm](https://nodejs.org) >= 4.4
+Install [node and npm](https://nodejs.org) >= 6.9.2 LTS
 
 Install [typescript](https://www.typescriptlang.org/) compiler and [typings](https://www.npmjs.com/package/typings#) clis globally
 
@@ -32,7 +32,7 @@ $ npm run build
 From the api folder:
 
 ```bash
-$ npm run start
+$ npm run quotesapi
 ```
 
 ## Test

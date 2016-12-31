@@ -4,7 +4,7 @@
     "description": "Sane Node Sample Service Api Endpoint",
     "main": "app.js",
     "scripts": {
-        "start": "node ./bin/www",
+        "quotesapi": "node ./bin/www",
         "build": "node node_modules/typescript/bin/tsc",
         "test": "node node_modules/typescript/bin/tsc && mocha tests.js"
     },

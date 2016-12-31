@@ -1,0 +1,25 @@
+{
+  "name": "sanenode.web",
+  "version": "1.0.0",
+  "description": "Sane Node Sample Web UI",
+  "main": "index.js",
+  "scripts": {
+    "quotesweb": "node ./bin/www",
+    "build": "node node_modules/typescript/bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryan MacFarlane",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "jsonwebtoken": "^7.2.1",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.1.4"
+  }
+}
