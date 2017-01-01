@@ -3,12 +3,14 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
-        "sourceMap": false
+        "sourceMap": false,
+        "jsx": "react"
     },
     "exclude": [
         "node_modules"
     ],
     "files": [
-        "server.ts"
+        "server.ts",
+        "./components/quotelabel.tsx"
     ]
 }

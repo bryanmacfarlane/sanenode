@@ -2,11 +2,16 @@
 
 import * as express from 'express';
 import * as cors from 'cors';
+import * as cm from '../common/contracts';
+import * as compm from './components/quotelabel';
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
+import * as ReactServer from 'react-dom/server';
 
 let router: express.Router = express.Router();
 
 let data: any = {
-    "sample": "data"
+    "quotecontents": "<h1>quote contents here</h1>"
 };
 
 //let config = require('./config.json');
@@ -35,7 +40,16 @@ export async function setup(app:express.Express) {
     // Routes using Services
     //----------------------------------------------------------
     app.get('/', (req: express.Request, res: express.Response) => {
-        res.render('index', data);
+        let quote: cm.IQuote = <cm.IQuote>{};
+        quote.quote = "This is a cool quote";
+        quote.author = "Some dude";
+
+        let el: React.ReactElement<cm.IQuote> = React.createElement(compm.QuoteLabel, quote);
+        let contents:string = ReactServer.renderToStaticMarkup(el);
+
+        res.render('index', {
+            "quotecontents": contents
+        });
     });
 
     app.get('/:view', (req: express.Request, res: express.Response) => {

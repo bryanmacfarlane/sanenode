@@ -11,13 +11,17 @@
   "author": "Bryan MacFarlane",
   "license": "MIT",
   "dependencies": {
+    "@types/react": "^0.14.55",
+    "@types/react-dom": "^0.14.20",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.1",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "jsonwebtoken": "^7.2.1",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   },
   "devDependencies": {
     "typescript": "^2.1.4"
