@@ -45,7 +45,7 @@ export async function setup(app:express.Express) {
         quote.author = "Some dude";
 
         let el: React.ReactElement<cm.IQuote> = React.createElement(compm.QuoteLabel, quote);
-        let contents:string = ReactServer.renderToStaticMarkup(el);
+        let contents:string = ReactServer.renderToString(el);
 
         res.render('index', {
             "quotecontents": contents
