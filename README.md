@@ -58,6 +58,15 @@ Also apparent with intellisense.  In this case using [VS Code](https://code.visu
 
 ![Compile Error](docs/compileerr.png)
 
+## Share Code Between Server and Client
+
+Specifically:  
+
+  - (In progress) React components rendered server side for perf and SEO and then shared client side in the brower to resume on AJAX use.
+  - (Not Started) Share validation between browser and API
+
+Crude pattern illustrated [here](https://codepen.io/bryanmacfarlane/pen/OWVjVw)
+
 ## Debug
 
 Illustrate how to debug
