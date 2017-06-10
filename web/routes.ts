@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import * as express from 'express';
 import * as cors from 'cors';
 import * as cm from '../common/contracts';

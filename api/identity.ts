@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import * as path from 'path';
 import * as ds from 'nedb';
 import * as sm from './store';

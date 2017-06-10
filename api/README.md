@@ -4,12 +4,6 @@
 
 Install [node and npm](https://nodejs.org) >= 6.9.2 LTS
 
-Install [typescript](https://www.typescriptlang.org/) compiler and [typings](https://www.npmjs.com/package/typings#) clis globally
-
-```bash
-sudo npm install typings -g
-```
-
 ## Build
 
 From api folder ...
@@ -17,7 +11,6 @@ From api folder ...
 once or if new dependencies added / updated:
 
 ```bash
-$ typings install
 $ npm install
 ```
 
@@ -45,28 +38,18 @@ $ npm test
 
 ## Typings
 
-How typings were created.
+How typings were created using @types
 
 ```bash
-# this created a typings.json file
-$ typings init
-
-# express and it's dependencies
-# had to install it's dependencies as well
-$ typings install dt~express --global --save
-$ typings install dt~express-serve-static-core --global --save
-$ typings install dt~serve-static --global --save
-$ typings install dt~body-parser --global --save
-$ typings install dt~cookie-parser --global --save
-$ typings install dt~mime --global --save
-$ typings install dt~node --global --save
-$ typings install dt~nedb --global --save
-$ typings install dt~q --global --save
-$ typings install dt~jsonwebtoken --global --save
-$ typings install dt~cors --global --save
+$ npm install @types/express --save
+$ npm install @types/node --save
+$ npm install @types/nedb --save
+$ npm install @types/q --save
+$ npm install @types/jsonwebtoken --save
+$ npm install @types/cors --save
 
 # test
-$ typings install dt~mocha --global --save
-$ typings install dt~supertest --global --save
-$ typings install dt~superagent --global --save
+$ npm install @types/mocha --save-dev
+$ npm install @types/supertest --save-dev
+$ npm install @types/superagent --save-dev
 ```

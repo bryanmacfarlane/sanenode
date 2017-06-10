@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Sane Node Sample Web UI",
   "main": "index.js",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/bryanmacfarlane/sanenode"
+  },  
   "scripts": {
     "quotesweb": "node ./bin/www",
     "build": "node node_modules/typescript/bin/tsc",
@@ -11,6 +15,11 @@
   "author": "Bryan MacFarlane",
   "license": "MIT",
   "dependencies": {
+    "@types/cors": "^2.8.1",
+    "@types/express": "^4.0.35",
+    "@types/jsonwebtoken": "^7.2.1",
+    "@types/node": "^7.0.29",
+    "@types/q": "^1.0.0",
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.20",
     "body-parser": "^1.15.2",
@@ -24,6 +33,6 @@
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
-    "typescript": "^2.1.4"
+    "typescript": "^2.3.4"
   }
 }

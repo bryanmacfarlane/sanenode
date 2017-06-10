@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import appm = require('./app');
 import http = require('http');
 import * as exp from 'express';

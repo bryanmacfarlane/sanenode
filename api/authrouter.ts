@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import * as exp from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as Q from 'q';

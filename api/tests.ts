@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 import appm = require('./app');
 import http = require('http');
 import assert = require('assert');
@@ -24,7 +22,7 @@ describe('Quotes API Tests', async () => {
                 _server = http.createServer(_app);
                 _server.listen(_port, (err) => {
                     if (err) {
-                        assert.fail('Failed to start server: ' + err.message);
+                        assert.fail('failed to listen', 'listen', 'Failed to start server: ' + err.message, 'server');
                     }
 
                     done();
@@ -34,7 +32,7 @@ describe('Quotes API Tests', async () => {
             startServer();
         }
         catch (err) {
-            assert.fail('Failed to load task lib: ' + err.message);
+            assert.fail('no task lib', 'tasklib', 'Failed to load task lib: ' + err.message, 'tasklib');
         }
     });
 

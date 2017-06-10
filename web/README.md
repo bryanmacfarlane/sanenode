@@ -4,12 +4,6 @@
 
 Install [node and npm](https://nodejs.org) >= 6.9.2 LTS
 
-Install [typescript](https://www.typescriptlang.org/) compiler and [typings](https://www.npmjs.com/package/typings#) clis globally
-
-```bash
-sudo npm install typings -g
-```
-
 ## Build
 
 From api folder ...
@@ -33,4 +27,20 @@ From the api folder:
 
 ```bash
 $ npm run quotesweb
+```
+
+How typings were created using @types
+
+```bash
+$ npm install @types/express --save
+$ npm install @types/node --save
+$ npm install @types/nedb --save
+$ npm install @types/q --save
+$ npm install @types/jsonwebtoken --save
+$ npm install @types/cors --save
+
+# test
+$ npm install @types/mocha --save-dev
+$ npm install @types/supertest --save-dev
+$ npm install @types/superagent --save-dev
 ```
