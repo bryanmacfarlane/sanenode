@@ -2,7 +2,7 @@ import appm = require('./app');
 import http = require('http');
 import * as exp from 'express';
 
-var port = getPort(process.env.API_PORT, 8880);
+var port = getPort(process.env.API_PORT, 7771);
 
 var _server: http.Server = null;
 

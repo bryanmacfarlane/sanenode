@@ -3,8 +3,12 @@
 node_modules
 
 # build output
-*.js
+_build
 npm-debug.log
+
+# web - TODO eliminate
+web/**/*.js
+common/*.js
 
 # OSX
 .DS_Store

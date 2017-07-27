@@ -7,7 +7,7 @@
         "node_modules"
     ],    
     "files": [
-        "app.ts",
+        "server.ts",
     	"tests.ts"
     ]    
 }
