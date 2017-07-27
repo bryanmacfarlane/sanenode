@@ -4,13 +4,14 @@
   "description": "Sane Node Sample Service Api Endpoint",
   "main": "app.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/bryanmacfarlane/sanenode"
+    "type": "git",
+    "url": "https://github.com/bryanmacfarlane/sanenode"
   },
   "scripts": {
-    "quotesapi": "node ./bin/www",
-    "build": "node node_modules/typescript/bin/tsc",
-    "test": "node node_modules/typescript/bin/tsc && mocha tests.js"
+    "start": "node bin/www",
+    "build": "node make.js build",
+    "test": "node make.js test",
+    "buildImage": "node make.js buildImage"
   },
   "author": "Bryan MacFarlane",
   "license": "MIT",
@@ -29,13 +30,14 @@
     "q": "^1.4.1"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/superagent": "^2.0.37",
+    "@types/supertest": "^2.0.0",
     "assert": "^1.4.1",
     "mocha": "^2.5.3",
     "request": "^2.72.0",
+    "shelljs": "^0.7.8",
     "supertest": "^1.2.0",
-    "typescript": "^2.3.4",
-    "@types/superagent": "^2.0.37",
-    "@types/supertest": "^2.0.0",  
-    "@types/mocha": "^2.2.41"
+    "typescript": "^2.3.4"
   }
 }
