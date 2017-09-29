@@ -11,7 +11,6 @@ From api folder ...
 once or if new dependencies added / updated:
 
 ```bash
-$ typings install
 $ npm install
 ```
 
