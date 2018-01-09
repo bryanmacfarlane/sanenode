@@ -35,7 +35,7 @@ export class AuthRouter {
             let decoded: any;
 
             try {
-                let auth: string = req.headers['authorization'];
+                let auth: string = <string>req.headers['authorization'];
                 if (auth) {
                     let parts = auth.trim().split(' ');
                     if (parts.length == 2 && parts[0] === 'Bearer') {
