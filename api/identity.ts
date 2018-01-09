@@ -1,8 +1,7 @@
 import * as path from 'path';
-import * as ds from 'nedb';
-import * as sm from './store';
 import * as Q from 'q';
 import * as cm from '../common/contracts'
+import { IStore } from './store';
 
 var sampleIdentities = require('./sampledata/identities.json');
 
@@ -15,11 +14,11 @@ export interface Identity {
 }
     
 export class IdentityService {
-    constructor() {
-        this._store = new sm.Store();
+    constructor(private store: IStore) {
+        this._store = store;
     }
 
-    private _store: sm.Store;
+    private _store: IStore;
 
     public async authenticate(credential: cm.IApiCredential): Promise<Identity> {
         var identity: Identity;
