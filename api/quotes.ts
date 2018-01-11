@@ -1,17 +1,16 @@
 import * as path from 'path';
-import * as ds from 'nedb';
 import * as sm from './store';
 import * as Q from 'q';
 import * as cm from '../common/contracts';
-
+import { IStore } from './store';
 var sampleQuotes = require('./sampledata/quotes.json');
     
 export class QuotesService {
-    constructor() {
-        this._store = new sm.Store();
+    constructor(store: IStore) {
+        this._store = store;
     }
 
-    private _store: sm.Store;
+    private _store: IStore;
 
     public async initialize() {
         // insert some sample data for the demo

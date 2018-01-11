@@ -2,10 +2,17 @@ import * as path from 'path';
 import * as nedb from 'nedb';
 import * as Q from 'q';
 
-export class Store {
-    constructor() {
+export interface IStore {
+    load(): Q.Promise<void>;
+    find<T>(query:any): Q.Promise<Array<T>>;
+    findOne<T>(query:any): Q.Promise<T>;
+    insert<T>(doc: T): Q.Promise<T>;
+}
+
+export class Store implements IStore {
+    constructor(db: nedb) {
         // in memory db
-        this._db = new nedb();
+        this._db = db;
     }
 
     private _db: nedb;

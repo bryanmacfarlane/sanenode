@@ -7,6 +7,8 @@ import * as auth from './authrouter';
 import * as cors from 'cors';
 import * as cm from '../common/contracts';
 import * as api from './common'
+import * as sm from './store';
+import * as nedb from 'nedb';
 
 let config = require('./config.json');
 
@@ -25,10 +27,14 @@ export async function setup(app:exp.Express) {
     //----------------------------------------------------------
     // Create Services
     //----------------------------------------------------------
-    let idsvc: id.IdentityService = new id.IdentityService();
+    const idDb = new nedb();
+    const idStore = new sm.Store(idDb);
+    let idsvc: id.IdentityService = new id.IdentityService(idStore);
     await idsvc.initialize();
 
-    let qsvc: qm.QuotesService = new qm.QuotesService();
+    const quoteDb = new nedb();
+    const quoteStore = new sm.Store(quoteDb);
+    let qsvc: qm.QuotesService = new qm.QuotesService(quoteStore);
     await qsvc.initialize();
 
     //----------------------------------------------------------
