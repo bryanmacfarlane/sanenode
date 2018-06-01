@@ -4,28 +4,53 @@
 
 Install [node and npm](https://nodejs.org) >= 6.9.2 LTS
 
-## Build
+## Dev Shell
 
-From api folder ...
-
-once or if new dependencies added / updated:
+Develop in a consistent dev container.  From root of repo
 
 ```bash
-$ npm install
+$ ./dev
 ```
 
-every time:
+change to api
 
 ```bash
-$ npm run build
+cd api
+```
+
+type alias to see convenient aliases
+
+```bash
+root@sanenode-dev:/sanenode# alias
+alias napi='npm run api'
+alias nb='npm run build'
+alias ni='npm install'
+alias nim='npm run image'
+alias nt='npm test'
+```
+
+# Install Dependencies
+
+once or dependencies updated.  from api
+
+```bash
+$ ni
+```
+
+## Build
+
+from api
+
+```bash
+$ nb
 ```
 
 ## Run
 
-From the api folder:
+from api
 
 ```bash
-$ npm run quotesapi
+$ napi
 ```
 
 ## Test
@@ -33,7 +58,15 @@ $ npm run quotesapi
 From the api folder:
 
 ```bash
-$ npm test
+$ nt
+```
+
+## Create Image
+
+From the api folder:
+
+```bash
+$ nim
 ```
 
 ## Typings

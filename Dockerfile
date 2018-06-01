@@ -4,10 +4,9 @@
 # * dev == CI
 #-----------------------------------------------------------------------
 # docker build -t bryanmacfarlane/sanenode-dev .
-# docker run -it -h sanenode-dev -p 7770:7770 -v $(pwd):/sanenode -it bryanmacfarlane/sanenode-dev bash
+# docker run -it -h sanenode-dev -p 7770:7770 -v $(pwd):/sanenode -v /var/run/docker.sock:/var/run/docker.sock -w /sanenode -it bryanmacfarlane/sanenode-dev bash
 
-# https://hub.docker.com/_/ubuntu/
-FROM ubuntu:xenial
+FROM debian:stretch-slim
 
 RUN apt-get update
 
@@ -19,26 +18,28 @@ RUN apt-get install -y --no-install-recommends apt-utils
 #-----------------------------------------------------------------------
 RUN apt-get install -y --no-install-recommends \
 	apt-transport-https \
-	build-essential \
 	ca-certificates \
 	curl \
-	g++ \
-	gcc \
 	git \
-	make \
-	nginx \
-	sudo \
-	wget
+#	build-essential \	
+#	g++ \
+#	gcc \
+#	make \
+	sudo
+#	wget
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# install docker cli
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-18.03.1-ce.tgz && tar --strip-components=1 -xvzf docker-18.03.1-ce.tgz -C /usr/local/bin
 
 #-------------------------------------------------------------------------------------
 # install node using nvm
 # https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application
 #-------------------------------------------------------------------------------------
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.11.0
+ENV NODE_VERSION 8.11.2
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
     && source $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
@@ -47,3 +48,14 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh
 
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+#--------------
+# dev aliases
+#--------------
+RUN echo 'alias ni="npm install"' >> ~/.bashrc
+RUN echo 'alias nb="npm run build"' >> ~/.bashrc
+RUN echo 'alias nt="npm test"' >> ~/.bashrc
+RUN echo 'alias nim="npm run image"' >> ~/.bashrc
+RUN echo 'alias napi="npm run api"' >> ~/.bashrc
+RUN echo 'alias nweb="npm run web"' >> ~/.bashrc
+

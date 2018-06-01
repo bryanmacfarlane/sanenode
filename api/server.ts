@@ -31,6 +31,7 @@ function onListening() {
     console.log('Listening on ' + bind);
 }
 
+// handle errors
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
