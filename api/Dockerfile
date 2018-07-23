@@ -1,38 +1,15 @@
 # docker build -t bryanmacfarlane/sanenode-api .
-# docker run -p 7770:7770 -it bryanmacfarlane/sanenode-api
-# docker run -it bryanmacfarlane/sanenode-api bash
+#
+# run:
+# docker run -p 7770:7770 -d bryanmacfarlane/sanenode-api
+#
+# docker create -p 7770:7770 bryanmacfarlane/sanenode-api
+# docker container ls -all
+# docker start <id>
+# docker stop <id>
+# docker rm <id>
 
-# https://hub.docker.com/_/ubuntu/
-FROM ubuntu:xenial
-
-RUN apt-get update
-
-RUN apt-get install -y --no-install-recommends apt-utils
-
-RUN apt-get update
-
-RUN apt-get install -y --no-install-recommends --fix-missing curl \
-    apt-transport-https \
-    ca-certificates \
-	sudo
-
-# Replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
-#-------------------------------------------------------------------------------------
-# install node using nvm
-# https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application
-#-------------------------------------------------------------------------------------
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.11.0
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+FROM node:8.11.2-slim
 
 COPY . /sanenode
 

@@ -22,7 +22,7 @@ target.clean = function() {
     rm('-Rf', buildPath);
 };
 
-target.build = function(dev) {
+target.build = function(prod) {
     target.clean();
 
     run('tsc --version');
@@ -32,22 +32,20 @@ target.build = function(dev) {
     cp('-R', rp('sampledata'), apiBuildPath);
     cp('-R', rp('bin'), apiBuildPath);
     cp(rp('Dockerfile'), buildPath);
+    cp('-R', rp('node_modules'), apiBuildPath);
 
     // dev should use node_modules with all dev dependencies
     // prod build should just pull prod dependencies (not dev)
-    if (dev) {
-        cp('-R', rp('node_modules'), apiBuildPath);        
-    }
-    else {
+    if (prod) {
         rm(path.join(apiBuildPath, 'tests.js'));
         pushd(apiBuildPath);
-        run('npm install --production');
+        run('npm prune --production');
         popd();
     }
 }
 
 target.test = function() {
-    target.build(true); //dev deps
+    target.build(); //dev 
 
     pushd(apiBuildPath);
     run('mocha ' + path.join(process.cwd(), 'tests.js'));
@@ -55,7 +53,8 @@ target.test = function() {
 }
 
 target.buildImage = function() {
-    target.build(); // prod
+    target.clean();
+    target.build(true); // prod
 
     pushd('_build');
     run('docker build -t bryanmacfarlane/sanenode-api .');
