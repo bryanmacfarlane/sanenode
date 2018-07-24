@@ -79,15 +79,28 @@ Tests should be written in the same sequential async/await fashion.
 
 ![Compile Error](docs/awaittests.png)
 
-## Manageable and Scaleable
+## Container Based Micro-Services
 
 Breaking code into micro-services and layers makes code manageable and allows for independent scaling.  However, doing so requires common modules and complicates security.    
 
 This sample will illustrate using JWT tokens for auth, CORS and a simple role based security model using Node middleware.
 
+Each service is built as containers and is deployed to Kubernetes.
+
+## Engineering
+
+Create an effective inner dev loop
+
+- Build and unit test outside source
+- Unit tests for inner dev loop
+- Full tests against running container
+- Container lifecycle for inner dev loop
+- Create production package with no source or tests
+- Seal build environment and tools in a container
+
 ## API
 
-[Api Service Here](api)
+[Api Service Here](api/README.md)
 
 ## Front End
 
