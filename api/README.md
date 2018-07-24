@@ -2,39 +2,29 @@
 
 ## Dependencies and Dev Tools
 
-Install [node and npm](https://nodejs.org) >= 6.9.2 LTS
-
-## Build
-
-From api folder ...
-
-once or if new dependencies added / updated:
+Container (recommended):
+For a consistent dev environment, you can start the dev container.
 
 ```bash
-$ npm install
+$ ./dev
+ensuring docker
+/usr/local/bin/docker
+starting dev shell
+root@sanenode-dev:/sanenode#
 ```
 
-every time:
+Or use host OS:
+Install [node and npm](https://nodejs.org) >= 8.11.2 LTS
 
-```bash
-$ npm run build
-```
+## Dev Lifecycle
 
-## Run
-
-From the api folder:
-
-```bash
-$ npm run quotesapi
-```
-
-## Test
-
-From the api folder:
-
-```bash
-$ npm test
-```
+Install packages: `npm install`  
+Build: `npm run build`  
+Unit tests: `npm run units`  
+Run on Host: `npm run api`  
+Docker Image: `npm run image`  
+Container up: `npm run up`  
+Container down: `npm run down`  
 
 ## Typings
 

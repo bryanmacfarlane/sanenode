@@ -30,20 +30,28 @@ RUN apt-get install -y --no-install-recommends \
 	sudo \
 	wget
 
-# Replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# # install docker cli
+# #  169 MB (374)
+ENV DOCKER_VERSION 18.03.1-ce
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz \
+    && tar --strip-components=1 -xvzf docker-18.03.1-ce.tgz -C /usr/local/bin
+RUN rm docker-$DOCKER_VERSION.tgz
 
-#-------------------------------------------------------------------------------------
-# install node using nvm
-# https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application
-#-------------------------------------------------------------------------------------
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.11.0
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
+# Install kubectl
+# Note: Latest version may be found on:
+# https://aur.archlinux.org/packages/kubectl-bin/
+ENV KUBE_VERSION 1.6.4
+RUN curl -fsSLO https://storage.googleapis.com/kubernetes-release/release/v$KUBE_VERSION/bin/linux/amd64/kubectl
+RUN cp kubectl /usr/local/bin
+RUN rm kubectl
 
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+#------------------------------------------------------------------
+# NODE / NPM
+#------------------------------------------------------------------
+ENV NODE_VER 8.11.2
+ENV NODE_PATH /usr/local/bin/node-v${NODE_VER}/bin
+RUN mkdir -p ${NODE_PATH}
+RUN curl -fsSLO https://nodejs.org/download/release/v${NODE_VER}/node-v${NODE_VER}-linux-x64.tar.gz \
+    && tar --strip-components=1 -xvzf node-v${NODE_VER}-linux-x64.tar.gz -C /usr/local/bin/node-v${NODE_VER}
+RUN rm node-v${NODE_VER}-linux-x64.tar.gz
+ENV PATH ${NODE_PATH}:$PATH
