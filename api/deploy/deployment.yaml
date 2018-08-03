@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: sanenode-api
-        image: 'bryanmacfarlane/sanenode-api:{{ .Env.imageTag }}'
+        image: 'bryanmacfarlane/sanenode-api:1.0.0'
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7770

@@ -9,7 +9,7 @@ function failed()
 }
 
 which docker || failed "docker not in path"
-which kuberctl || failed "kubectl not in path"
+which kubectl || failed "kubectl not in path"
 which gomplate || failed "gomplate not in path"
 
 ARGS=("$@")
@@ -85,15 +85,15 @@ function down() {
 }
 
 function kubeApply() {
-    local imageTag="${1:-latest}"
+    export imageTag="${1:-latest}"
 
     echo "deploying ${IMAGE_NAME}:${imageTag}"
     echo "templatizing deployment files..."
-    gomplate -d imageTag=env:imageTag -f ./deploy/deployment-templ.yaml -o ./deploy/deployment.yaml
-    gomplate -d imageTag=env:imageTag -f ./deploy/service-templ.yaml -o ./deploy/service.yaml
+    gomplate -f ./deploy/deployment-templ.yaml -o ./deploy/deployment.yaml
+    gomplate -f ./deploy/service-templ.yaml -o ./deploy/service.yaml
 
-    #kubectl apply -f ./deploy/deployment.yaml
-    #kubectl apply -f ./deploy/service.yaml
+    kubectl apply -f ./deploy/deployment.yaml
+    kubectl apply -f ./deploy/service.yaml
 }
 
 function test() {
