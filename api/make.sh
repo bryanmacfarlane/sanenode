@@ -11,14 +11,15 @@ PACKAGE_VERSION=$(cat package.json \
   | grep version \
   | head -1 \
   | awk -F: '{ print $2 }' \
-  | sed 's/[",]//g')
+  | sed 's/[",]//g' \
+  | tr -d '[[:space:]]')
 
 function clean() {
     rm -Rf "${BUILD_PATH}"
 }
 
 function build() {
-    echo "building ${PACKAGE_VERSION}"
+    echo "building [${PACKAGE_VERSION}]"
     clean
     mkdir -p ${API_BUILD_PATH}
     "${MOD_BIN}/tsc" --outDir "${BUILD_PATH}"
@@ -57,7 +58,7 @@ function test() {
 function image() {
     build true #prod
     pushd "${API_BUILD_PATH}" > /dev/null
-    docker build -t bryanmacfarlane/sanenode-api .
+    docker build -t bryanmacfarlane/sanenode-api:latest -t "bryanmacfarlane/sanenode-api:${PACKAGE_VERSION}" .
     popd
 }
 
