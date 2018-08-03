@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
 set -e
+
+# ensure dependencies
+function failed()
+{
+   echo "error: $1" >&2
+   exit 1
+}
+
+which docker || failed "docker not in path"
+which kuberctl || failed "kubectl not in path"
+which gomplate || failed "gomplate not in path"
+
 ARGS=("$@")
 
 SRC_PATH=`dirname "$0"`
 BUILD_PATH="${SRC_PATH}/_build"
 API_BUILD_PATH="${BUILD_PATH}/api"
 MOD_BIN="$SRC_PATH/node_modules/.bin"
+IMAGE_NAME="bryanmacfarlane/sanenode-api"
 
 PACKAGE_VERSION=$(cat package.json \
   | grep version \
@@ -51,10 +64,6 @@ function units() {
     popd
 }
 
-function test() {
-    build true #prod
-}
-
 function image() {
     build true #prod
     pushd "${API_BUILD_PATH}" > /dev/null
@@ -63,7 +72,7 @@ function image() {
 }
 
 function up() {
-    docker run --cidfile ./cid  -p 7770:7770 -d bryanmacfarlane/sanenode-api
+    docker run --cidfile ./cid  -p 7770:7770 -d "bryanmacfarlane/sanenode-api:${PACKAGE_VERSION}"
 }
 
 function down() {
@@ -73,6 +82,28 @@ function down() {
         docker rm $CID
         rm ./cid
     fi
+}
+
+function kubeApply() {
+    local imageTag="${1:-latest}"
+
+    echo "deploying ${IMAGE_NAME}:${imageTag}"
+    echo "templatizing deployment files..."
+    gomplate -d imageTag=env:imageTag -f ./deploy/deployment-templ.yaml -o ./deploy/deployment.yaml
+    gomplate -d imageTag=env:imageTag -f ./deploy/service-templ.yaml -o ./deploy/service.yaml
+
+    #kubectl apply -f ./deploy/deployment.yaml
+    #kubectl apply -f ./deploy/service.yaml
+}
+
+function test() {
+    kubeApply
+
+}
+
+function deploy() {
+    kubeApply "${PACKAGE_VERSION}"
+
 }
 
  "$@"

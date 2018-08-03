@@ -15,7 +15,8 @@
     "test": "bash make.sh test",
     "image": "bash make.sh image",
     "up": "bash make.sh up",
-    "down": "bash make.sh down"
+    "down": "bash make.sh down",
+    "deploy": "bash make.sh deploy"
   },
   "author": "Bryan MacFarlane",
   "license": "MIT",
