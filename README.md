@@ -1,5 +1,7 @@
 # Sane Node Development
 
+> Update: A more modern approach (isomorphic react+express+typescript) here: https://github.com/bryanmacfarlane/quotes-feed
+
 Create a sample service which illustrates sane node development avoiding some of the historic problems.
 
 ## Eliminate Callback Hell  
