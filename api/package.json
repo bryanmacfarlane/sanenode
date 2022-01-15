@@ -41,7 +41,7 @@
     "assert": "^1.4.1",
     "mocha": "^2.5.3",
     "request": "^2.72.0",
-    "shelljs": "^0.7.8",
+    "shelljs": "^0.8.5",
     "supertest": "^1.2.0",
     "typescript": "^2.3.4"
   }
