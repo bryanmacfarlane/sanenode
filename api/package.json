@@ -39,7 +39,7 @@
     "@types/superagent": "^2.0.37",
     "@types/supertest": "^2.0.0",
     "assert": "^1.4.1",
-    "mocha": "^2.5.3",
+    "mocha": "^10.1.0",
     "request": "^2.72.0",
     "shelljs": "^0.7.8",
     "supertest": "^1.2.0",
