@@ -26,10 +26,10 @@
     "@types/nedb": "^1.8.3",
     "@types/node": "^7.0.29",
     "@types/q": "^1.0.0",
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
-    "express": "^4.14.0",
+    "express": "^4.18.2",
     "jsonwebtoken": "^7.0.1",
     "nedb": "^1.8.0",
     "q": "^1.4.1"
@@ -42,7 +42,7 @@
     "mocha": "^2.5.3",
     "request": "^2.72.0",
     "shelljs": "^0.7.8",
-    "supertest": "^1.2.0",
+    "supertest": "^6.3.2",
     "typescript": "^2.3.4"
   }
 }
