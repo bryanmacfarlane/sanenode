@@ -42,7 +42,7 @@
     "mocha": "^2.5.3",
     "request": "^2.72.0",
     "shelljs": "^0.7.8",
-    "supertest": "^1.2.0",
+    "supertest": "^6.3.3",
     "typescript": "^2.3.4"
   }
 }
